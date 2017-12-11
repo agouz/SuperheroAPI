@@ -8,7 +8,7 @@ Endpoint  | Operations | Description
 /api/v1/superhero/<name> | POST | Add a new Superhero
 /api/v1/superheroes | GET | Get All superheros
 
-# How to run th app locally:
+# How to run th app locally
 ## Pre-requisite to running it locally (first time only)
 pip virtualenv
 virtualenv venv
