@@ -1,25 +1,6 @@
 # SuperheroAPI
 A sample python API that reveals superheroes' secret identities.
 
-/api/v1/superhero/<name>
-
-# Pre-requisite to running it locally (first time only)
-pip virtualenv
-virtualenv venv
-
-# Install dependecies
-source venv/bin/activate
-pip install -r requirements.txt
-
-## to run locally
-# Run the following only once
-source venv/bin/activate
-# to start the server
-python server.py
-
-# TO test your API locally
- `http://127.0.0.1:5002/api/v1/superhero/batman`
-
 # Exposed enspoints
 Endpoint  | Operations | Description
 ------------- | ----------------|----------
@@ -27,7 +8,26 @@ Endpoint  | Operations | Description
 /api/v1/superhero/<name> | POST | Add a new Superhero
 /api/v1/superheroes | GET | Get All superheros
 
-## Dockerisation
+# How to run th app locally:
+## Pre-requisite to running it locally (first time only)
+pip virtualenv
+virtualenv venv
+
+## Install dependecies
+source venv/bin/activate
+pip install -r requirements.txt
+
+## Run the following only once
+source venv/bin/activate
+## Start the server
+`python server.py`
+
+Check the applications is runing by typeing the following in your browser:
+ `http://127.0.0.1:5002/api/v1/superhero/batman`
+
+
+
+# Dockerisation
 
 1- To dockerise your api first build the docker image using the 'DockerFile'
 `docker build -t superhero-api .`
