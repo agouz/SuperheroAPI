@@ -1,8 +1,5 @@
 FROM python:3
 
-
-RUN pip install flask flask-jsonpify flask-restful
-
 # add the script to the Dockerfile:
 ADD server.py /
 ADD data/superheroes.json /data/

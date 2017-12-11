@@ -28,8 +28,8 @@ def search_superhero(name, superheroes):
                 'try calling /api/v1/superheroes to get all of our registered heroes')
     return result
 
-@app.route('/api/v1/superhero/<superhero>', methods=['POST'])
-def add_superhero(superhero):
+@app.route('/api/v1/superhero/<name>', methods=['POST'])
+def add_superhero(name):
     """
     Serves the POST /api/v1/superhero/<name> path
     """
@@ -58,4 +58,4 @@ def get_all_superheroes():
     return jsonify(read_superheroes())
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port='5002')
+    app.run(host='0.0.0.0', port=5002)
