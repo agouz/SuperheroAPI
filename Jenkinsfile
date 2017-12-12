@@ -8,6 +8,7 @@ properties([
   pipelineTriggers([pollSCM('H/2 * * * *')])
 ])
 
+node(){
    stage 'Build API Image'
   openshiftBuild apiURL: '', authToken: '', bldCfg: applicationId, buildName: '', 
     checkForTriggeredDeployments:'false', commitID: '',
@@ -30,3 +31,4 @@ properties([
   openshiftTag apiURL: '', authToken: '', namespace: namespace, sourceStream: applicationId, 
     sourceTag: 'latest', destinationStream: applicationId, destinationTag: version, verbose: 'false'
 
+}
