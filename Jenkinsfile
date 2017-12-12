@@ -23,10 +23,10 @@ node(){
     stage 'Deploy'
     openshiftDeploy apiURL: '', authToken: '', depCfg: applicationId, namespace: namespace, verbose: 'false', waitTime: ''
 
-    // stage 'Verify Deployment'
+    stage 'Verify Deployment'
     openshiftVerifyDeployment apiURL: '', authToken: '', depCfg: applicationId, namespace: namespace, replicaCount: '1', verbose: 'false', verifyReplicaCount: 'false', waitTime: ''
 
-    // stage 'Tag Image'
+    stage 'Tag Image'
     openshiftTag apiURL: '', authToken: '', namespace: namespace, sourceStream: applicationId, sourceTag: 'latest', destinationStream: applicationId, destinationTag: version, verbose: 'false'
 
 }
