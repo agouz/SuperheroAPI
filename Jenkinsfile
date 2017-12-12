@@ -8,34 +8,25 @@ properties([
   pipelineTriggers([pollSCM('H/2 * * * *')])
 ])
 
-node('dpe-infra-slave') {
+   stage 'Build API Image'
+  openshiftBuild apiURL: '', authToken: '', bldCfg: applicationId, buildName: '', 
+    checkForTriggeredDeployments:'false', commitID: '',
+    namespace: namespace, showBuildLogs: 'false', verbose: 'false', waitTime: '',
+    env : [[ name : 'JENKINS_BUILD_NO', value : buildNo ],[ name : 'APP_VERSION', value : version ]]
 
-  stage 'Build API Image'
-  sh """
-      oc whoami
-      oc project ${namespace}
-      oc start-build ${applicationId} -n ${namespace}
-    """
-  // There is an issue kicking off builds. While start-build sometimes fails the actual build
-  // pod actually launches. Hence, introducing a sleep to wait for the build pod logs to become
-  // available.
-  sleep 10
-  sh """
-      oc logs pod/${applicationId}-\$(oc get bc/${applicationId} -n ${namespace} -o jsonpath='{.status.lastVersion}')-build -f -n ${namespace}
-    """
+  stage 'Verify API Image Build'
+  openshiftVerifyBuild apiURL: '', authToken: '', bldCfg: applicationId, 
+    checkForTriggeredDeployments: 'false', namespace: namespace, verbose: 'false'
 
   stage 'Deploy API'
-  sh """
-      oc whoami
-      oc project ${namespace}
-      oc rollout latest dc/${applicationId} -n ${namespace}
-      oc rollout status dc/${applicationId} -n ${namespace} --watch
-    """
+  openshiftDeploy apiURL: '', authToken: '', depCfg: applicationId, namespace: namespace, 
+    verbose: 'false', waitTime: ''
+
+  stage 'Verify Deployment'
+  openshiftVerifyDeployment apiURL: '', authToken: '', depCfg: applicationId, namespace: namespace, 
+    replicaCount: '1', verbose: 'false', verifyReplicaCount: 'false', waitTime: ''
 
   stage 'Tag Image'
-  sh """
-      oc whoami
-      oc project ${namespace}
-      oc tag ${namespace}/${applicationId}:latest ${namespace}/${applicationId}:${version}
-    """
-}
+  openshiftTag apiURL: '', authToken: '', namespace: namespace, sourceStream: applicationId, 
+    sourceTag: 'latest', destinationStream: applicationId, destinationTag: version, verbose: 'false'
+
