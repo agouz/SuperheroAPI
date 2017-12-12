@@ -8,6 +8,11 @@ Endpoint  | Operations | Description
 /api/v1/superhero/<name> | POST | Add a new Superhero
 /api/v1/superheroes | GET | Get All superheros
 
+## Environment variables
+Env Var  | Description | Default
+------------- | ------------- | -------------
+PORT | PORT number used by the API to listen to incoming request | 8080
+
 # How to run th app locally
 ## Pre-requisite to running it locally (first time only)
 pip virtualenv

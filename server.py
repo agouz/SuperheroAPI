@@ -2,6 +2,7 @@
 This creates a Restful server that servers the SuperHeroes API
 """
 import json
+import os
 from flask import Flask, request, abort, jsonify
 
 app = Flask(__name__)
@@ -58,4 +59,5 @@ def get_all_superheroes():
     return jsonify(read_superheroes())
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5002)
+    port_number = os.environ['PORT'] if ('PORT' in os.environ) else 8080
+    app.run(host='0.0.0.0', port=int(port_number))
